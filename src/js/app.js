@@ -15,6 +15,7 @@ renderCourses = () => {
   courses.forEach(course => {
     const courseItem = document.createElement('li');
     courseItem.textContent = course.name;
+    courseItem.classList.add('text-2xl', 'font-bold');
     courseList.appendChild(courseItem);
   });
 };
@@ -23,15 +24,15 @@ renderHoles = (filteredCourses) => {
     const holeList = document.getElementById('hole-list');
     holeList.innerHTML = '';
     filteredCourses.forEach(course => {
-        holes = course.holes;
-        const holeTitle = document.createElement('h3');
+        const holeTitle = document.createElement('h2');
         holeTitle.textContent = 'Hole';
-        holeTitle.classList.add('font-bold', 'border-l-2', 'border-black');
         holeList.appendChild(holeTitle);
+        holeTitle.classList.add('font-bold', 'border', 'border-black');
+        holes = course.holes;
         holes.forEach(hole => {
             const holeItem = document.createElement('li');
-            holeItem.textContent= hole.number;
-            holeItem.classList.add('mx-2', 'border-l-2', 'border-black', 'pl-2');
+            holeItem.textContent = hole.number;
+            holeItem.classList.add('border', 'border-black');
             holeList.appendChild(holeItem);
         });
     });
@@ -43,8 +44,10 @@ const searchCourses = () => {
   const filteredCourses = courses.filter(course => course.name.toLowerCase().includes(searchValue.toLowerCase()));
   console.log(filteredCourses);
   renderFilteredCourses(filteredCourses);
-
   renderHoles(filteredCourses);
+  renderPars(filteredCourses);
+  renderDistance(filteredCourses);
+  renderInputs(filteredCourses);
 
   searchInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
@@ -59,7 +62,60 @@ const renderFilteredCourses = (filteredCourses) => {
   filteredCourses.forEach(course => {
     const courseItem = document.createElement('li');
     courseItem.textContent = course.name;
+    courseItem.classList.add('text-2xl', 'font-bold');
     courseList.appendChild(courseItem);
+  });
+}
+
+const renderPars = (filteredCourses) => {
+  const parList = document.querySelector('.par-list');
+  parList.innerHTML = '';
+  filteredCourses.forEach(course => {
+    const parTitle = document.createElement('h2');
+    parTitle.textContent = 'Par';
+    parList.appendChild(parTitle);
+    parTitle.classList.add('font-bold', 'border', 'border-black');
+    holes = course.holes;
+    holes.forEach(hole => {
+        const parItem = document.createElement('li');
+        parItem.textContent = hole.par;
+        parItem.classList.add('border', 'border-black');
+        parList.appendChild(parItem);
+    });
+  });
+}
+
+const renderDistance = (filteredCourses) => {
+  const distanceList = document.querySelector('.distance-list');
+  distanceList.innerHTML = '';
+  filteredCourses.forEach(course => {
+    const distanceTitle = document.createElement('h2');
+    distanceTitle.textContent = 'Blues';
+    distanceList.appendChild(distanceTitle);
+    distanceTitle.classList.add('font-bold', 'border', 'border-black');
+    holes = course.holes;
+    holes.forEach(hole => {
+        const distanceItem = document.createElement('li');
+        distanceItem.textContent = hole.length;
+        distanceItem.classList.add('border', 'border-black');
+        distanceList.appendChild(distanceItem);
+    });
+  });
+}
+
+const renderInputs = (filteredCourses) => {
+  const scoreList = document.querySelector('.score-list');
+  scoreList.innerHTML = ''; 
+  filteredCourses.forEach(course => {
+    const holes = course.holes;
+    for (let i = 0; i <= holes.length; i++) { 
+      const inputItem = document.createElement('li');
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.classList.add('border', 'border-black', 'w-full');
+      inputItem.appendChild(input);
+      scoreList.appendChild(inputItem);
+    }
   });
 }
 

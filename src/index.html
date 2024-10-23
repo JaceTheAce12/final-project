@@ -33,15 +33,27 @@
         </div>
     </div>
 
-    <h1 class='text-2xl'>Courses</h1>
-    <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md search"> 
+    <div class="max-w-xl m-auto">
+        <h1 class='text-2xl'>Courses</h1>
+        <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md search"> 
+    </div>
 
-    <div class="score-card max-w-3xl m-auto">
-        <ul id="course-list">
-            <!-- Courses will be dynamically added here -->
-        </ul>
-        <ul id="hole-list" class="flex flex-row border-y-[3px] border-black">
+    <ul id="course-list" class="text-center">
+        <!-- Courses will be dynamically added here -->
+    </ul>
+
+    <div class="score-card m-auto grid grid-rows-4 border-[1px] border-black max-w-4xl text-white">
+        <ul id="hole-list" class="col-span-19 grid grid-cols-19 text-center bg-green-700">
             <!-- Holes will be dynamically added here -->
+        </ul>
+        <ul class="distance-list col-span-19 grid grid-cols-19 text-center bg-blue-700">
+            <!-- Par values will be dynamically added here -->
+        </ul>
+        <ul class="score-list col-span-19 grid grid-cols-19 text-center text-black">
+            <!-- Score values will be dynamically added here -->
+        </ul>
+        <ul class="par-list col-span-19 grid grid-cols-19 text-center bg-green-700">
+            <!-- Par values will be dynamically added here -->
         </ul>
     </div>
 
