@@ -5,8 +5,7 @@ const getCourseData = async () => {
   const data = await response.json();
   courses = data;
   console.log(courses);
-  renderCourses();
-  renderHoles();
+  searchCourses()
 };
 
 getCourseData();
@@ -15,20 +14,52 @@ renderCourses = () => {
   const courseList = document.getElementById('course-list');
   courses.forEach(course => {
     const courseItem = document.createElement('li');
-    courseItem.innerText = course.name;
+    courseItem.textContent = course.name;
     courseList.appendChild(courseItem);
   });
 };
 
-renderHoles = () => {
+renderHoles = (filteredCourses) => {
     const holeList = document.getElementById('hole-list');
-    courses.forEach(course => {
+    holeList.innerHTML = '';
+    filteredCourses.forEach(course => {
         holes = course.holes;
+        const holeTitle = document.createElement('h3');
+        holeTitle.textContent = 'Hole';
+        holeTitle.classList.add('font-bold', 'border-l-2', 'border-black');
+        holeList.appendChild(holeTitle);
         holes.forEach(hole => {
             const holeItem = document.createElement('li');
-            holeItem.innerText = hole.number;
+            holeItem.textContent= hole.number;
+            holeItem.classList.add('mx-2', 'border-l-2', 'border-black', 'pl-2');
             holeList.appendChild(holeItem);
         });
     });
+}
+
+const searchCourses = () => {
+  const searchInput = document.querySelector('.search');
+  const searchValue = searchInput.value;
+  const filteredCourses = courses.filter(course => course.name.toLowerCase().includes(searchValue.toLowerCase()));
+  console.log(filteredCourses);
+  renderFilteredCourses(filteredCourses);
+
+  renderHoles(filteredCourses);
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      searchCourses();
+    }
+  });
+}
+
+const renderFilteredCourses = (filteredCourses) => {
+  const courseList = document.getElementById('course-list');
+  courseList.innerHTML = '';
+  filteredCourses.forEach(course => {
+    const courseItem = document.createElement('li');
+    courseItem.textContent = course.name;
+    courseList.appendChild(courseItem);
+  });
 }
 
