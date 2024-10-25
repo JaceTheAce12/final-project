@@ -7,56 +7,33 @@
     <link href="./output.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
+    <main>
+        <button class="start-round btn w-36 bg-green-700 py-2 px-4 rounded-lg m-auto">Start a new Round</button>
 
-    <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-4">Golf Score Tracker</h1>
-        
-        <!-- Form to add a new score -->
-        <form id="scoreForm" class="mb-4">
-            <div class="mb-2">
-                <label for="courseName" class="block text-sm font-medium text-gray-700">Course Name</label>
-                <input type="text" id="courseName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-            </div>
-            <div class="mb-2">
-                <label for="score" class="block text-sm font-medium text-gray-700">Score</label>
-                <input type="number" id="score" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-            </div>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Add Score</button>
-        </form>
+        <div class="search-container max-w-xl m-auto hidden">
+            <h1 class='text-2xl'>Courses</h1>
+            <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md search"> 
+        </div>
 
-        <!-- List of scores -->
-        <div id="scoreList" class="bg-white p-4 rounded-md shadow-md">
-            <h2 class="text-2xl font-bold mb-2">Scores</h2>
-            <ul id="scores" class="list-disc pl-5">
-                <!-- Scores will be dynamically added here -->
+        <ul id="course-list" class="text-center">
+            
+        </ul>
+
+        <div class="score-card m-auto grid grid-rows-4 border-[1px] border-black max-w-6xl text-white">
+            <ul id="hole-list" class="col-span-22 grid grid-cols-22 text-center bg-green-700">
+                
+            </ul>
+            <ul class="distance-list col-span-22 grid grid-cols-22 text-center bg-blue-700">
+                
+            </ul>
+            <ul class="score-list col-span-22 grid grid-cols-22 text-center text-black">
+                
+            </ul>
+            <ul class="par-list col-span-22 grid grid-cols-22 text-center bg-green-700">
+                
             </ul>
         </div>
-    </div>
-
-    <div class="max-w-xl m-auto">
-        <h1 class='text-2xl'>Courses</h1>
-        <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md search"> 
-    </div>
-
-    <ul id="course-list" class="text-center">
-        <!-- Courses will be dynamically added here -->
-    </ul>
-
-    <div class="score-card m-auto grid grid-rows-4 border-[1px] border-black max-w-4xl text-white">
-        <ul id="hole-list" class="col-span-19 grid grid-cols-19 text-center bg-green-700">
-            <!-- Holes will be dynamically added here -->
-        </ul>
-        <ul class="distance-list col-span-19 grid grid-cols-19 text-center bg-blue-700">
-            <!-- Par values will be dynamically added here -->
-        </ul>
-        <ul class="score-list col-span-19 grid grid-cols-19 text-center text-black">
-            <!-- Score values will be dynamically added here -->
-        </ul>
-        <ul class="par-list col-span-19 grid grid-cols-19 text-center bg-green-700">
-            <!-- Par values will be dynamically added here -->
-        </ul>
-    </div>
-
-    <script src="js/app.js"></script>
+    </main>
+<script src="js/app.js"></script>
 </body>
 </html>
