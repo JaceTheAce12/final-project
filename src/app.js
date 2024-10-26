@@ -1,5 +1,6 @@
 let courses = [];
 let scores = [];
+const startRoundBtn = document.querySelector('.start-round');
 
 const getScores = async () => {
   const response = await fetch('http://localhost:4000/scores');
@@ -15,17 +16,21 @@ const getCourseData = async () => {
   const data = await response.json();
   courses = data;
   console.log('Courses', courses);
+  renderCourses();
 };
 
 getCourseData();
 
-renderCourses = () => {
-  const courseList = document.getElementById('course-list');
+const renderCourses = () => {
+  const courseList = document.querySelector('.course-container');
+  courseList.innerHTML = '';
   courses.forEach(course => {
-    const courseItem = document.createElement('li');
-    courseItem.textContent = course.name;
-    courseItem.classList.add('text-2xl', 'font-bold');
-    courseList.appendChild(courseItem);
+    courseList.innerHTML += `
+      <div class='border border-black rounded-lg max-w-2xl py-6 px-10'>
+        <h1 class='text-2xl w-96 font-bold'>${course.name}</h1>
+        <p>${course.location}</p>
+      </div>
+    `;
   });
 };
 
@@ -40,7 +45,7 @@ renderHoles = (filteredCourses) => {
         holes = course.holes;
         let frontNinetitle = 'OUT';
         let backNinetitle = 'IN';
-        let totaltitle = 'TOT';
+        let totalTitle = 'TOT';
         holes.forEach((hole, index) => {
             const holeItem = document.createElement('li');
             holeItem.textContent = hole.number;
@@ -61,7 +66,7 @@ renderHoles = (filteredCourses) => {
               holeList.appendChild(backNineItem);
 
               const totalItem = document.createElement('li');
-              totalItem.textContent = totaltitle;
+              totalItem.textContent = totalTitle;
               totalItem.classList.add('border', 'border-black');   
               holeList.appendChild(totalItem);
             }
@@ -202,24 +207,8 @@ const renderInputs = (filteredCourses, scores) => {
     for (let i = 0; i < parList.children.length; i++) { 
       const inputItem = document.createElement('li');
       const input = document.createElement('input');
-      let total = 0;
-      if (i > 0 && i <= 19 && i !== 10) {
-        input.type = 'number';
-        input.min = 0;
-        input.max = 9;
-      } else {
-        input.type = 'text';
-      }
+      input.type = 'number';
       input.classList.add('border', 'border-black', 'w-full');
-
-      if (i !== 10) {
-        const holeScore = scores.find(score => score.hole === i);
-        if (holeScore) {
-          input.value = holeScore.score;
-        }
-      }
-
-      total += parseInt(input.value);
 
       input.addEventListener('change', (e) => {
         const score = e.target.value;
@@ -231,6 +220,7 @@ const renderInputs = (filteredCourses, scores) => {
           scores.push({ hole, score });
         }
         console.log(scores);
+        addInputs();
       });
 
       inputItem.appendChild(input);
@@ -239,9 +229,40 @@ const renderInputs = (filteredCourses, scores) => {
   });
 }
 
-document.querySelector('.search').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    searchCourses();
-  }
-});
+const addInputs = () => {
+  const scoreList = document.querySelector('.score-list');
+  const inputs = scoreList.querySelectorAll('input[type="number"]');
+
+  let totalScore = 0;
+  let frontNineScore = 0;
+  let backNineScore = 0;
+
+  inputs.forEach((input, index) => {
+    const score = parseInt(input.value, 10) || 0;
+    if (index <= 9) {
+      frontNineScore += score;
+    } else if (index > 9 && index < 18) {
+      backNineScore += score;
+    } else {
+      totalScore = frontNineScore + backNineScore;
+    }
+
+    if (index === 10) {
+      inputs[index].value = frontNineScore;
+    } else if ( index === 20) {
+      inputs[index].value = backNineScore;
+    } else if (index === 21) {
+      inputs[index].value = totalScore;
+    }
+  });
+
+}
+
+const startRound = () => {
+  const searchContainer = document.querySelector('.search-container');
+  searchContainer.classList.remove('hidden');
+}
+
+document.addEventListener(startRoundBtn, startRound);
+
 

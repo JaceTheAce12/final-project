@@ -4,20 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golf Score Tracker</title>
-    <link href="./output.css" rel="stylesheet">
+    <link href="./src/output.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
     <main>
         <button class="start-round btn w-36 bg-green-700 py-2 px-4 rounded-lg m-auto">Start a new Round</button>
 
-        <div class="search-container max-w-xl m-auto hidden">
+        <div class="search-container max-w-xl m-auto">
             <h1 class='text-2xl'>Courses</h1>
             <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md search"> 
         </div>
 
-        <ul id="course-list" class="text-center">
-            
-        </ul>
+        <div class="course-container text-center flex flex-wrap justify-center"></div>
 
         <div class="score-card m-auto grid grid-rows-4 border-[1px] border-black max-w-6xl text-white">
             <ul id="hole-list" class="col-span-22 grid grid-cols-22 text-center bg-green-700">
@@ -33,7 +31,9 @@
                 
             </ul>
         </div>
+
+        <div class="score-card-container grid grid-cols-22 max-w-6xl m-auto"></div>
     </main>
-<script src="js/app.js"></script>
+<script src="./src/app.js"></script>
 </body>
 </html>
